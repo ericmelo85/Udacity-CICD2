@@ -61,9 +61,10 @@ workflows:
   welcome:
     # Run the welcome/run job in its own container
     jobs:
+      - test_failure
       #- welcome/run
-      - save_hello_world_output
-      - print_pipeline
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      #- save_hello_world_output
+      #- print_pipeline
+      #- print_output_file:
+      #    requires:
+      #      - save_hello_world_output
