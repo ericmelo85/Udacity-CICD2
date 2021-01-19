@@ -12,9 +12,9 @@ jobs:
     steps:
       - run: 
           name: "store hello World"
-          command: echo "Hello World" > output.txt
+          command: echo "Hello World" > ~/output.txt
       - persist_to_workspace:
-          root: /tmp
+          root: ~/
           paths:
             - .
   print_output_file:
@@ -22,11 +22,11 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
-          at: /tmp
+          at: ~/
       - run:
           name: "print project_owner name"
           command: |
-            cat output.txt
+            cat ~/output.txt
 workflows:
   # Name the workflow "welcome"
   welcome:
