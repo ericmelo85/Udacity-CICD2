@@ -46,7 +46,7 @@ jobs:
     <<: *defaults
     steps:
       - print_pipeline_id
-      
+
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -54,6 +54,7 @@ workflows:
     jobs:
       #- welcome/run
       - save_hello_world_output
+      - print_pipeline
       - print_output_file:
           requires:
             - save_hello_world_output
