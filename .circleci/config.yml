@@ -5,10 +5,23 @@ version: 2.1
   # Declare a dependency on the welcome-orb
   # welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
+commands:
+  print_pipeline_id:
+    description: "The aim of this command is to create reusable step that pints an env variable"
+    steps:
+      - run:
+          name: "print env variable"
+          command: echo $CIRCLE_WORKFLOW_ID
+
+default: &defaults
+  docker:
+    - image: circleci/node:13.8.0
+
 jobs:
   save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
+    #docker:
+    #  - image: circleci/node:13.8.0
     steps:
       - run: 
           name: "store hello World"
@@ -18,8 +31,9 @@ jobs:
           paths:
             - .
   print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
+    #docker:
+    #  - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
           at: ~/
@@ -27,6 +41,12 @@ jobs:
           name: "print project_owner name"
           command: |
             cat ~/output.txt
+
+  print_pipeline:
+    <<: *defaults
+    steps:
+      - print_pipeline_id
+      
 workflows:
   # Name the workflow "welcome"
   welcome:
