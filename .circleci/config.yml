@@ -34,6 +34,6 @@ workflows:
     jobs:
       #- welcome/run
       - save_hello_world_output
-      - persist_to_workspace:
+      - print_output_file:
           requires:
             - save_hello_world_output
