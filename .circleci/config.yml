@@ -47,6 +47,15 @@ jobs:
     steps:
       - print_pipeline_id
 
+  test_failure:
+    <<: *defaults
+    steps:
+      - run: return 1
+      - run: 
+          name: "catch test_failure"
+          command: echo "The previous step failed dramatically"
+          when: on_fail
+
 workflows:
   # Name the workflow "welcome"
   welcome:
